@@ -1,5 +1,5 @@
-from app import create_app
-from app.models import db, Hero, Power
+from server.app import create_app
+from server.models import db, Hero, Power
 
 def seed_db():
     app = create_app()
