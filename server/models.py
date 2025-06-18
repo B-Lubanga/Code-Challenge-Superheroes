@@ -29,7 +29,7 @@ class Power(db.Model):
 
     hero_powers = db.relationship('HeroPower', backref='power', cascade="all, delete")
 
-#Validations
+#Validations for character count
     @validates('description')
     def validate_description(self, key, description):
         if not description or len(description) < 20:
@@ -50,6 +50,7 @@ class HeroPower(db.Model):
     hero_id = db.Column(db.Integer, db.ForeignKey('heroes.id'))
     power_id = db.Column(db.Integer, db.ForeignKey('powers.id'))
 
+#hapa we do validation for the Hero power strength
     @validates('strength')
     def validate_strength(self, key, strength):
         if strength not in ['Strong', 'Weak', 'Average']:
