@@ -1,11 +1,11 @@
 from server.app import create_app
-from server.models import db, Hero, Power
+from server.models import db, Hero, Power,HeroPower
 
 def seed_db():
     app = create_app()
 
     with app.app_context():
-        # we drop the tables
+        # Clear any existing data
         db.session.remove()
         db.drop_all()
         # we created the tables
@@ -30,6 +30,20 @@ def seed_db():
         p6 = Power(name="weather control", description="Manipulates natural elements such as wind, rain, and lightning.")
 
         db.session.add_all([h1, h2, h3, h4, h5, h6, h7, h8, p1, p2, p3, p4, p5, p6])
+        db.session.commit()
+
+        # HeroPower data
+        hp1 = HeroPower(strength="Strong", hero_id=h1.id, power_id=p1.id)
+        hp2 = HeroPower(strength="Average", hero_id=h2.id, power_id=p2.id)
+        hp3 = HeroPower(strength="Weak", hero_id=h3.id, power_id=p3.id)
+        hp4 = HeroPower(strength="Strong", hero_id=h4.id, power_id=p4.id)
+        hp5 = HeroPower(strength="Average", hero_id=h5.id, power_id=p5.id)
+        hp6 = HeroPower(strength="Strong", hero_id=h6.id, power_id=p6.id)
+        hp7 = HeroPower(strength="Weak", hero_id=h7.id, power_id=p1.id)
+        hp8 = HeroPower(strength="Average", hero_id=h8.id, power_id=p2.id)
+
+        # Add HeroPowers to the database
+        db.session.add_all([hp1, hp2, hp3, hp4, hp5, hp6, hp7, hp8])
         db.session.commit()
 
         print("Database seeded with initial data.")
