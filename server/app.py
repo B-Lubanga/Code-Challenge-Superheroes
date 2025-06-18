@@ -4,12 +4,14 @@ from server.models import db
 
 
 def create_app():
-    app = Flask(__name__)
+    # This tells Flask where to find HTML templates and static files like videos
+    app = Flask(__name__, static_folder='static', template_folder='templates')
 
     #Configuring Sqlalchemy 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    
+    # Initialize database
     db.init_app(app)
     #here we initialize migrate
     Migrate(app, db)
@@ -25,4 +27,4 @@ if __name__ == '__main__':
     # Hii is equivalent to 'flask db init', 'flask db migrate', and 'flask db upgrade'.
     with app.app_context():
         db.create_all()
-    app.run()
+    app.run(debug=True)

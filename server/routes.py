@@ -1,9 +1,15 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request,render_template
 from server.models import db, Hero, Power, HeroPower
 
 # Creates a Blueprint object for the routes. This helps in organizing the application.
 main = Blueprint('main', __name__)
 
+
+#set up a landing page ('/')
+@main.route('/')
+def landing_page():
+    # Rendering the landing page template
+    return render_template('landing_page.html')
 
 # this one Defines a route for the "/heroes" endpoint to handle GET requests and return a list of all heroes.na it happens to all the others
 @main.route('/heroes')
